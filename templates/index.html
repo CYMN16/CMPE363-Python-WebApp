@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<style>
+	.card{
+		max-width: 1000px;
+		min-height: 550px;
+		background: lightblue;
+		padding: 30px;
+		box-sizing: border-box;
+		color: #FFF;
+		margin:20px;
+		box-shadow: 0px 2px 18px -4px rgba(0,0,0,0.75);
+}
+html { font-family: Courier New; display: inline-block; margin: 0px auto; text-align: center;}
+.button {border: none; color: white; padding: 10px 20px; text-align: center;
+		text-decoration: none; font-size: 25px; margin: 2px; cursor: pointer;}
+		.button1 {background-color: #FF0000;}
+</style>
+<body>
+
+		<div class="card">
+			<h1>CYMN ESP-RAK Web Server</h1><br>
+			<h1><span id="TempVal">Temperature: 0, Humidity: 0</span></h1><br>
+			<p><a href="/sendlora"><button class="button button1">Click To Send LoRa Packet</button></a></p>
+	</div>
+	<script>
+
+			setInterval(function() {
+	// Call a function repetatively with 2 Second interval
+	getData();
+}, 2000); //2000mSeconds update rate
+
+			function getData() {
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("TempVal").innerHTML =
+						this.responseText;
+				}
+		};
+		xhttp.open("GET", "readTemp", true);
+		xhttp.send();
+}
+</script>
+</body>
+</html>
